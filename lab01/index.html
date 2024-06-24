@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab1</title>
+</head>
+
+<h1>Đồ họa máy tính - CS105.O21</h1>
+<h2>Bài tập lab1: Lê Tiến Quyết - 21520428</h2>
+
+<!-- Tạo Menu để lựa chọn thuật toán-->
+<article>
+    <label for="choice">Algorithm:</label>
+    <select id="choice">
+        <option value="none">Nothing</option>
+        <option value="dda">DDA</option>
+        <option value="bresenham">Bresenham</option>
+        <option value="midpoint">Midpoint</option>
+    </select>
+</article>
+
+<!--Kích thước hiển thị-->
+<canvas id="myCanvas" width="2000" height="1000"></canvas>
+
+<!--Thêm các file .js để xử dụng các hàm vẽ-->
+<script src="dda.js"></script>
+<script src="bresenham.js"></script>
+<script src="midpoint.js"></script>
+<script src="process_xOy.js"></script>
+
+<!--Xử lý khi có sự lựa chọn-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let user_choice = document.getElementById("choice");
+        user_choice.addEventListener("change", function() {
+            const canvas = document.getElementById("myCanvas");
+            const user_value = user_choice.value;
+            let previousX = null, previousY = null; 
+            if (user_value == "none") {
+                delete_xOy();
+                canvas.style.pointerEvents = "none";
+                return;
+            } 
+            else {
+                draw_xOy();
+                canvas.style.pointerEvents = "auto";
+                const ctx = canvas.getContext("2d");
+
+                canvas.addEventListener("click", function(event) {
+                        const rect = canvas.getBoundingClientRect();
+                        const x = event.clientX - rect.left;
+                        const y = event.clientY - rect.top;
+                        const user_value = document.getElementById("choice").value;
+
+                        draw_lastPoint(x,y); 
+
+                        if (user_value == "dda") {
+                            if (previousX != null && previousY != null) {
+                                draw_DDAline(previousX, previousY, x, y);
+                            }
+                        }
+                        else if (user_value == "bresenham") {
+                            if (previousX != null && previousY != null) {
+                                draw_BRESENHAMline(previousX, previousY, x, y);
+                            }
+                        }
+                        else if (user_value == "midpoint") {
+                            if (previousX != null && previousY != null) {
+                                draw_centerOfCircle(previousX,previousY);
+                                let r = Math.sqrt((x-previousX)**2+(y-previousY)**2);
+                                draw_MIDPOINTcircle(previousX, previousY, r);
+                            }
+                        }
+                        previousX = x;
+                        previousY = y;
+                    });
+                }
+            });
+        });
+</script>
+</html>
