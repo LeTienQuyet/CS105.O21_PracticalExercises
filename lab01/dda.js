@@ -12,10 +12,8 @@ function draw_DDAline(x1, y1, x2, y2) {
 
     if (Math.abs(dy) <= Math.abs(dx)) {
         if (x2 < x1) {
-            let tx = x1;
-            x1 = x2, x2 = tx;
-            let ty = y1;
-            y1 = y2, y2 = ty;
+            [x1, x2] = [x2, x1];
+            [y1, y2] = [y2, y1];
         }
         let k = dy / dx;   
         let y = y1;
@@ -27,10 +25,8 @@ function draw_DDAline(x1, y1, x2, y2) {
     else 
     {
         if (y2 < y1) {
-            let tx = x1;
-            x1 = x2, x2 = tx;
-            let ty = y1;
-            y1 = y2, y2 = ty;
+            [x1, x2] = [x2, x1];
+            [y1, y2] = [y2, y1];
         }
         let k = dx / dy;
         let x = x1;

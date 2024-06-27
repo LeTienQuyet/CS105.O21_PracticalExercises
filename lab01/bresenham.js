@@ -15,10 +15,8 @@ function draw_BRESENHAMline(x1, y1, x2, y2) {
 
     if (dy <= dx) {
         if (x2 < x1) {
-            let tx = x1;
-            x1 = x2, x2 = tx;
-            let ty = y1;
-            y1 = y2, y2 = ty;
+            [x1, x2] = [x2, x1];
+            [y1, y2] = [y2, y1];
         }
         let p = 2*dy - dx;
         let y = y1;
@@ -37,10 +35,8 @@ function draw_BRESENHAMline(x1, y1, x2, y2) {
     else 
     {
         if (y2 < y1) {
-            let tx = x1;
-            x1 = x2, x2 = tx;
-            let ty = y1;
-            y1 = y2, y2 = ty;
+            [x1, x2] = [x2, x1];
+            [y1, y2] = [y2, y1];
         }
         let p = 2*dx - dy;
         let x = x1;
