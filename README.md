@@ -4,4 +4,12 @@
   </a>
 </p>
 
-# Bài tập thực hành của `Đồ Hoạ Máy Tính - CS105.O21`
+<h1 align="center"><b>ĐỒ HOẠ MÁY TÍNH - CS105.O21</b></h>
+
+## GIỚI THIỆU MÔN HỌC
+* **Môn học:** Đồ hoạ máy tính
+* **Mã lớp:** CS105.O21
+* **Giảng viên**: ThS. Cáp Phạm Đình Thăng
+
+<!-- Footer -->
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;`Copyright © 2024 - Lê Tiến Quyết`
