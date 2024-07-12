@@ -1,4 +1,4 @@
-function draw_BRESENHAMline(x1, y1, x2, y2) {
+function draw_BRESENHAMline(x1, y1, x2, y2, color) {
     let canvas = document.getElementById('myCanvas');
     let ctx = canvas.getContext('2d');
     // Tính delta x và delta y
@@ -11,7 +11,7 @@ function draw_BRESENHAMline(x1, y1, x2, y2) {
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = color;
 
     if (dy <= dx) {
         if (x2 < x1) {

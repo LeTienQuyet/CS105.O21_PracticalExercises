@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab1</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <h1>Đồ họa máy tính - CS105.O21</h1>
@@ -20,6 +21,14 @@
     </select>
 </article>
 
+<!-- Chọn màu cho đường đã vẽ -->
+<body>
+    <form class="color-picker" action="HTMLColorPicker.html">
+        <label for="color">Line color</label>
+        <input type="color" name="favcolor" id="color" onchange="getLineColor()">
+    </form>
+</body>
+
 <!--Kích thước hiển thị-->
 <canvas id="myCanvas" width="2000" height="1000"></canvas>
 
@@ -31,6 +40,24 @@
 
 <!--Xử lý khi có sự lựa chọn-->
 <script>
+    function getLineColor() {
+        var colorInput = document.getElementById("color");
+            var selectedColor = colorInput.value;
+            
+            var selectedColorElement = document.getElementById("selected-color");
+            if (!selectedColorElement) {
+                selectedColorElement = document.createElement("div");
+                selectedColorElement.id = "selected-color";
+                document.body.appendChild(selectedColorElement);
+            }
+        return selectedColor;
+    }
+
+    function updateColorLine() {
+        colorLine = getLineColor();
+        console.log("Giá trị mới của colorLine:", colorLine);
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         let user_choice = document.getElementById("choice");
         user_choice.addEventListener("change", function() {
@@ -47,6 +74,10 @@
                 canvas.style.pointerEvents = "auto";
                 const ctx = canvas.getContext("2d");
 
+                var colorInput = document.getElementById("color");
+                updateColorLine();
+                colorInput.addEventListener("input", updateColorLine);
+
                 canvas.addEventListener("click", function(event) {
                         const rect = canvas.getBoundingClientRect();
                         const x = event.clientX - rect.left;
@@ -57,19 +88,19 @@
 
                         if (user_value == "dda") {
                             if (previousX != null && previousY != null) {
-                                draw_DDAline(previousX, previousY, x, y);
+                                draw_DDAline(previousX, previousY, x, y, colorLine);
                             }
                         }
                         else if (user_value == "bresenham") {
                             if (previousX != null && previousY != null) {
-                                draw_BRESENHAMline(previousX, previousY, x, y);
+                                draw_BRESENHAMline(previousX, previousY, x, y, colorLine);
                             }
                         }
                         else if (user_value == "midpoint") {
                             if (previousX != null && previousY != null) {
-                                draw_centerOfCircle(previousX,previousY);
+                                draw_centerOfCircle(previousX, previousY, colorLine);
                                 let r = Math.sqrt((x-previousX)**2+(y-previousY)**2);
-                                draw_MIDPOINTcircle(previousX, previousY, r);
+                                draw_MIDPOINTcircle(previousX, previousY, r, colorLine);
                             }
                         }
                         previousX = x;

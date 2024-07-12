@@ -1,4 +1,4 @@
-function draw_DDAline(x1, y1, x2, y2) {
+function draw_DDAline(x1, y1, x2, y2, color) {
     let canvas = document.getElementById('myCanvas');
     let ctx = canvas.getContext('2d');
     // Tính delta x và delta y
@@ -8,7 +8,7 @@ function draw_DDAline(x1, y1, x2, y2) {
     if (dx == 0 && dy == 0)
         return;
 
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = color;
 
     if (Math.abs(dy) <= Math.abs(dx)) {
         if (x2 < x1) {
