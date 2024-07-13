@@ -4,14 +4,12 @@ import {OrbitControls} from 'https://unpkg.com/three@0.126.1/examples/jsm/contro
 
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-const renderer = new THREE.WebGLRenderer({
-
-});
+const renderer = new THREE.WebGLRenderer({});
 renderer.shadowMap.enabled = true;
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
 scene.add(new THREE.AmbientLight(0xffffff, 1));
 const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -33,7 +31,7 @@ function getPlane(width, height, depth) {
         color: "rgb(123, 122, 110)",
         side: THREE.DoubleSide
     });
-    const plane = new THREE.Mesh( geometry, material );
+    const plane = new THREE.Mesh(geometry, material);
     plane.receiveShadow = true;
     return plane;
 };
@@ -43,7 +41,7 @@ function getCoin(radiusTop , radiusBottom, height, radialSegments) {
     const material = new THREE.MeshStandardMaterial({
         map: texture4coin
     });
-    const coin = new THREE.Mesh( geometry, material );
+    const coin = new THREE.Mesh(geometry, material);
     coin.castShadow = true;
     return coin;
 };
@@ -53,7 +51,7 @@ function getBox(width, height, depth) {
     const material = new THREE.MeshStandardMaterial({
         map: texture4box
     });
-    const box = new THREE.Mesh( geometry, material );
+    const box = new THREE.Mesh(geometry, material);
     box.castShadow = true;
     return box;
 };
@@ -86,16 +84,14 @@ scene.add(ball);
 camera.position.set(2, 4, 6);
 camera.lookAt(0, 0, 0);
 
+function rotateObject(object, angle) {
+    object.rotation.x += angle;
+}
+
 function animate() {
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
-    // coin.rotation.x += 0.01;
-    // box.rotation.y += 0.01;
-    // ball.rotation.z += 0.01;
-    
-    //  if (ball.position.z > -5) {
-    //     ball.position.z -= 0.01;
-    // };
- 
+	requestAnimationFrame(animate);
+	renderer.render(scene, camera);
+
+    rotateObject(coin, Math.PI/30);
 }
 animate();
