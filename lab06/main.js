@@ -84,8 +84,14 @@ scene.add(ball);
 camera.position.set(2, 4, 6);
 camera.lookAt(0, 0, 0);
 
+var time = 0;
+
 function rotateObject(object, angle) {
     object.rotation.x += angle;
+}
+
+function translateObject(object, amplitude, frequency, deltaY) {
+    object.position.y = amplitude * Math.cos(2*Math.PI*frequency*time) + deltaY;
 }
 
 function animate() {
@@ -93,5 +99,7 @@ function animate() {
 	renderer.render(scene, camera);
 
     rotateObject(coin, Math.PI/30);
+    translateObject(box, 1, 3, 1.75);
+    time += 0.001;
 }
 animate();
