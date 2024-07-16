@@ -85,6 +85,8 @@ camera.position.set(2, 4, 6);
 camera.lookAt(0, 0, 0);
 
 var time = 0;
+var totalAngle = 0;
+const frequency = 1;
 
 function rotateObject(object, angle) {
     object.rotation.x += angle;
@@ -94,12 +96,20 @@ function translateObject(object, amplitude, frequency, deltaY) {
     object.position.y = amplitude * Math.cos(2*Math.PI*frequency*time) + deltaY;
 }
 
+function circleMovement(object, radius) {
+    object.position.x = radius * Math.cos(totalAngle);
+    object.position.z = radius * Math.sin(totalAngle);
+}
+
 function animate() {
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
 
     rotateObject(coin, Math.PI/30);
     translateObject(box, 1, 3, 1.75);
+    circleMovement(ball, 4);
+    
+    totalAngle += 2 * Math.PI * frequency * (1/600);
     time += 0.001;
 }
 animate();
