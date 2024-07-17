@@ -87,18 +87,34 @@ camera.lookAt(0, 0, 0);
 var time = 0;
 var totalAngle = 0;
 const frequency = 1;
+const k = 1/300; // Điều chỉnh tốc độ xoay khi chuyển động tòn đều
 
+// Trả về giá trị tọa độ `x`, `z` ban đầu của đối tượng `object`
+function getStartPositionObject(object) {
+    return [object.position.x, object.position.z];
+}
+
+// Thực hiện việc xoay đối tượng `object` một góc `angle`
 function rotateObject(object, angle) {
     object.rotation.x += angle;
 }
 
+// Thực hiện dao động động điều hòa cho đối tượng `object`
+// `amplitude`: biên độ dao động
+// `frequency`: tần số dao động
 function translateObject(object, amplitude, frequency, deltaY) {
     object.position.y = amplitude * Math.cos(2*Math.PI*frequency*time) + deltaY;
 }
 
-function circleMovement(object, radius) {
-    object.position.x = radius * Math.cos(totalAngle);
-    object.position.z = radius * Math.sin(totalAngle);
+
+// Lấy giá trị `x` và `z` của đối tượng để làm tâm đường tròn
+const [x_center, z_center] = getStartPositionObject(coin);
+
+// Thực hiện cho `object` chuyển động tròn đều
+function circleMovement(object) { 
+    const radius = Math.sqrt(Math.pow(x_center-object.position.x, 2) +  Math.pow(z_center-object.position.z, 2));
+    object.position.x = x_center + radius * Math.cos(totalAngle);
+    object.position.z = z_center + radius * Math.sin(totalAngle);
 }
 
 function animate() {
@@ -107,9 +123,9 @@ function animate() {
 
     rotateObject(coin, Math.PI/30);
     translateObject(box, 1, 3, 1.75);
-    circleMovement(ball, 4);
+    circleMovement(ball);
     
-    totalAngle += 2 * Math.PI * frequency * (1/600);
+    totalAngle += 2 * Math.PI * frequency * k;
     time += 0.001;
 }
 animate();
